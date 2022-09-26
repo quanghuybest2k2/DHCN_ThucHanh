@@ -2,9 +2,9 @@
 require_once './db.php';
 
 require_once './phantrang.php';
-$query = "SELECT tths.ID, tths.TenSua, hs.TenHS, tths.LoaiSua, tths.TrongLuong, tths.DonGia FROM hang_sua as hs, thong_tin_sua as tths WHERE hs.MaHS = tths.HangSua";
-$num = $conn->query($query);
 
+$query = "SELECT tths.ID, tths.TenSua, hs.TenHS, tths.LoaiSua, tths.TrongLuong, tths.DonGia FROM hang_sua as hs, thong_tin_sua as tths Where hs.MaHS = tths.HangSua limit $start_from,$num_per_page";
+$result = mysqli_query($conn, $query);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,12 +45,12 @@ $num = $conn->query($query);
                 </thead>
                 <tbody>
                     <?php
+                    // tths.ID, tths.TenSua, hs.TenHS, tths.LoaiSua, tths.TrongLuong, tths.DonGia
                     $style = array('even', 'odd');
-                    if ($num->num_rows > 0) {
+                    if ($result->num_rows > 0) {
                         $index = 1;
                         //load khach hang
-                        // INSERT INTO `khach_hang`(`MaKH`, `TenKH`, `GioiTinh`, `DiaChi`, `DienThoai`) VALUES ('','','','','')
-                        while ($row = $num->fetch_assoc()) {
+                        while ($row = mysqli_fetch_assoc($result)) {
                             echo
                             "<tr class=" . $style[$index % 2] . ">
                                 <td>" . $row['ID'] . "</td>
@@ -67,13 +67,34 @@ $num = $conn->query($query);
                 </tbody>
             </table>
             <div class="container mt-3">
-                <ul class="pagination">
+                <!-- <ul class="pagination">
                     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                     <li class="page-item active"><a class="page-link" href="#">1</a></li>
                     <li class="page-item"><a class="page-link" href="#">2</a></li>
                     <li class="page-item"><a class="page-link" href="#">3</a></li>
                     <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
+                </ul> -->
+                <?php
+                $pr_query = "SELECT tths.ID, tths.TenSua, hs.TenHS, tths.LoaiSua, tths.TrongLuong, tths.DonGia FROM hang_sua as hs, thong_tin_sua as tths Where hs.MaHS = tths.HangSua";
+                $pr_result = mysqli_query($conn, $pr_query);
+                $total_record = mysqli_num_rows($pr_result);
+
+                $total_page = ceil($total_record / $num_per_page);
+
+                if ($page > 1) {
+                    echo "<a href='thong_tin_sua.php?page=" . ($page - 1) . "' class='btn btn-danger'>Previous</a>";
+                }
+
+
+                for ($i = 1; $i < $total_page; $i++) {
+                    echo "<a href='thong_tin_sua.php?page=" . $i . "' class='btn btn-primary'>$i</a>";
+                }
+
+                if ($i > $page) {
+                    echo "<a href='thong_tin_sua.php?page=" . ($page + 1) . "' class='btn btn-danger'>Next</a>";
+                }
+
+                ?>
             </div>
         </div>
     </div>
