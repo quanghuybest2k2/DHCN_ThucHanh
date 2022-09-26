@@ -2,7 +2,7 @@
 require_once './db.php';
 
 require_once './phantrang.php';
-$query = "SELECT * FROM khach_hang";
+$query = "SELECT tths.ID, tths.TenSua, hs.TenHS, tths.LoaiSua, tths.TrongLuong, tths.DonGia FROM hang_sua as hs, thong_tin_sua as tths WHERE hs.MaHS = tths.HangSua";
 $num = $conn->query($query);
 
 ?>
@@ -13,7 +13,7 @@ $num = $conn->query($query);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khách hàng</title>
+    <title>Thông tin sữa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
     <style>
@@ -30,16 +30,17 @@ $num = $conn->query($query);
 <body>
     <div class='container mt-5'>
         <div class='row justify-content-center'>
-            <h1 class="text-center">Thông tin khách hàng</h1>
+            <h1 class="text-center">Thông tin sữa</h1>
             <!-- table-striped -->
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Mã KH</th>
-                        <th>Tên khách hàng</th>
-                        <th>Giới tính</th>
-                        <th>Địa chỉ</th>
-                        <th>Số điện thoại</th>
+                        <th>Số TT</th>
+                        <th>Tên sữa</th>
+                        <th>Hẵng sữa</th>
+                        <th>Loại sữa</th>
+                        <th>Trọng lượng</th>
+                        <th>Đơn giá</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,19 +51,14 @@ $num = $conn->query($query);
                         //load khach hang
                         // INSERT INTO `khach_hang`(`MaKH`, `TenKH`, `GioiTinh`, `DiaChi`, `DienThoai`) VALUES ('','','','','')
                         while ($row = $num->fetch_assoc()) {
-                            $gender = '';
-                            if ($row['GioiTinh'] == 0) {
-                                $gender =  "<img src='img/48x48Male.png' />";
-                            } else {
-                                $gender =  "<img src='img/48x48Female.png' />";
-                            }
                             echo
                             "<tr class=" . $style[$index % 2] . ">
-                                <td>" . $row['MaKH'] . "</td>
-                                <td>" . $row['TenKH'] . "</td>
-                                <td>" . $gender . "</td>
-                                <td>" . $row['DiaChi'] . "</td>
-                                <td>" . $row['DienThoai'] . "</td>
+                                <td>" . $row['ID'] . "</td>
+                                <td>" . $row['TenSua'] . "</td>
+                                <td>" . $row['TenHS'] . "</td>
+                                <td>" . $row['LoaiSua'] . "</td>
+                                <td>" . $row['TrongLuong'] . "</td>
+                                <td>" . $row['DonGia'] . "</td>
                             </tr>";
                             $index++;
                         }
@@ -84,3 +80,16 @@ $num = $conn->query($query);
 </body>
 
 </html>
+<!-- 
+SELECT tths.ID, tths.TenSua, hs.TenHS, tths.LoaiSua, tths.TrongLuong, tths.DonGia FROM hang_sua as hs, thong_tin_sua as tths WHERE hs.MaHS = tths.HangSua
+INSERT INTO `thong_tin_sua`(`TenSua`, `HangSua`, `LoaiSua`, `TrongLuong`, `DonGia`) VALUES ('Cô gái hà lan', 'NTF', 'Sữa tươi', 100, 3000)
+CREATE TABLE thong_tin_sua (
+    ID INT AUTO_INCREMENT NOT NULL,
+  	TenSua VARCHAR(100) NOT NULL,
+  	 HangSua VARCHAR(100) NOT NULL,
+ 	LoaiSua VARCHAR(100) NOT NULL,
+  	TrongLuong INT,
+      DonGia INT,
+      FOREIGN KEY (HangSua) REFERENCES hang_sua(MaHS),
+  CONSTRAINT PK_HangSua PRIMARY KEY (ID, HangSua)
+); -->
