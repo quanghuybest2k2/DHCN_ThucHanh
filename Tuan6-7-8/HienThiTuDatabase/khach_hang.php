@@ -2,9 +2,9 @@
 require_once './db.php';
 
 require_once './phantrang.php';
-$query = "SELECT * FROM khach_hang";
-$num = $conn->query($query);
-
+$query = "SELECT * FROM khach_hang limit $start_from,$num_per_page";
+$result = mysqli_query($conn, $query);
+// INSERT INTO `khach_hang`(`MaKH`, `TenKH`, `GioiTinh`, `DiaChi`, `DienThoai`) VALUES ('','','','','')
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,11 +45,10 @@ $num = $conn->query($query);
                 <tbody>
                     <?php
                     $style = array('even', 'odd');
-                    if ($num->num_rows > 0) {
+                    if ($result->num_rows > 0) {
                         $index = 1;
                         //load khach hang
-                        // INSERT INTO `khach_hang`(`MaKH`, `TenKH`, `GioiTinh`, `DiaChi`, `DienThoai`) VALUES ('','','','','')
-                        while ($row = $num->fetch_assoc()) {
+                        while ($row = mysqli_fetch_assoc($result)) {
                             $gender = '';
                             if ($row['GioiTinh'] == 0) {
                                 $gender =  "<img src='img/48x48Male.png' />";
@@ -71,13 +70,27 @@ $num = $conn->query($query);
                 </tbody>
             </table>
             <div class="container mt-3">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
+                <?php
+                $pr_query = "SELECT * FROM khach_hang";
+                $pr_result = mysqli_query($conn, $pr_query);
+                $total_record = mysqli_num_rows($pr_result);
+
+                $total_page = ceil($total_record / $num_per_page);
+
+                if ($page > 1) {
+                    echo "<a href='khach_hang.php?page=" . ($page - 1) . "' class='btn btn-danger'>Previous</a>";
+                }
+
+
+                for ($i = 1; $i < $total_page; $i++) {
+                    echo "<a href='khach_hang.php?page=" . $i . "' class='btn btn-primary'>$i</a>";
+                }
+
+                if ($i > $page) {
+                    echo "<a href='khach_hang.php?page=" . ($page + 1) . "' class='btn btn-danger'>Next</a>";
+                }
+
+                ?>
             </div>
         </div>
     </div>

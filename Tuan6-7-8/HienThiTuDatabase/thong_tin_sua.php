@@ -3,8 +3,9 @@ require_once './db.php';
 
 require_once './phantrang.php';
 
-$query = "SELECT tths.ID, tths.TenSua, hs.TenHS, tths.LoaiSua, tths.TrongLuong, tths.DonGia FROM hang_sua as hs, thong_tin_sua as tths Where hs.MaHS = tths.HangSua limit $start_from,$num_per_page";
+$query = "SELECT tths.ID, tths.TenSua, hs.TenHS, ls.TenLoaiSua, tths.TrongLuong, tths.DonGia FROM hang_sua as hs, thong_tin_sua as tths, loai_sua as ls Where hs.MaHS = tths.HangSua and ls.MaLoaiSua = tths.LoaiSua limit $start_from,$num_per_page";
 $result = mysqli_query($conn, $query);
+// 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,7 +57,7 @@ $result = mysqli_query($conn, $query);
                                 <td>" . $row['ID'] . "</td>
                                 <td>" . $row['TenSua'] . "</td>
                                 <td>" . $row['TenHS'] . "</td>
-                                <td>" . $row['LoaiSua'] . "</td>
+                                <td>" . $row['TenLoaiSua'] . "</td>
                                 <td>" . $row['TrongLuong'] . "</td>
                                 <td>" . $row['DonGia'] . "</td>
                             </tr>";
@@ -67,15 +68,8 @@ $result = mysqli_query($conn, $query);
                 </tbody>
             </table>
             <div class="container mt-3">
-                <!-- <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul> -->
                 <?php
-                $pr_query = "SELECT tths.ID, tths.TenSua, hs.TenHS, tths.LoaiSua, tths.TrongLuong, tths.DonGia FROM hang_sua as hs, thong_tin_sua as tths Where hs.MaHS = tths.HangSua";
+                $pr_query = "SELECT tths.ID, tths.TenSua, hs.TenHS, ls.TenLoaiSua, tths.TrongLuong, tths.DonGia FROM hang_sua as hs, thong_tin_sua as tths, loai_sua as ls Where hs.MaHS = tths.HangSua and ls.MaLoaiSua = tths.LoaiSua";
                 $pr_result = mysqli_query($conn, $pr_query);
                 $total_record = mysqli_num_rows($pr_result);
 
@@ -101,16 +95,3 @@ $result = mysqli_query($conn, $query);
 </body>
 
 </html>
-<!-- 
-SELECT tths.ID, tths.TenSua, hs.TenHS, tths.LoaiSua, tths.TrongLuong, tths.DonGia FROM hang_sua as hs, thong_tin_sua as tths WHERE hs.MaHS = tths.HangSua
-INSERT INTO `thong_tin_sua`(`TenSua`, `HangSua`, `LoaiSua`, `TrongLuong`, `DonGia`) VALUES ('Cô gái hà lan', 'NTF', 'Sữa tươi', 100, 3000)
-CREATE TABLE thong_tin_sua (
-    ID INT AUTO_INCREMENT NOT NULL,
-  	TenSua VARCHAR(100) NOT NULL,
-  	 HangSua VARCHAR(100) NOT NULL,
- 	LoaiSua VARCHAR(100) NOT NULL,
-  	TrongLuong INT,
-      DonGia INT,
-      FOREIGN KEY (HangSua) REFERENCES hang_sua(MaHS),
-  CONSTRAINT PK_HangSua PRIMARY KEY (ID, HangSua)
-); -->

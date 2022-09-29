@@ -8,5 +8,5 @@ if (isset($_GET['page'])) {
 $num_per_page = 02;
 $start_from = ($page - 1) * 02;
 
-// $query = "select * from pagination limit $start_from,$num_per_page";
-// $result = mysqli_query($con, $query);
+// $query = "select * from khach_hang limit $start_from,$num_per_page";
+// $result = mysqli_query($conn, $query);

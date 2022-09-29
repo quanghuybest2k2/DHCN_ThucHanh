@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th9 26, 2022 lúc 02:28 PM
+-- Thời gian đã tạo: Th9 29, 2022 lúc 05:16 AM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.6
 
@@ -40,6 +40,7 @@ CREATE TABLE `hang_sua` (
 --
 
 INSERT INTO `hang_sua` (`MaHS`, `TenHS`, `DiaChi`, `DienThoai`, `Email`) VALUES
+('DS', 'Daisy', 'Khu công nghiệp Sống Thần Bình Dương', '5789321', 'daisy@ds.com'),
 ('NTF', 'Nutifood', 'Khu công nghiệp Sóng Thần Bình Dương', '7895632', 'nutifood@ntf.com'),
 ('VNM', 'Vinamilk', '123 Nguyễn Du - Quận 1 - TP.HCM', '8794561', 'vinamilk@vnm.com');
 
@@ -69,16 +70,37 @@ INSERT INTO `khach_hang` (`MaKH`, `TenKH`, `GioiTinh`, `DiaChi`, `DienThoai`) VA
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `loai_sua`
+--
+
+CREATE TABLE `loai_sua` (
+  `MaLoaiSua` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `TenLoaiSua` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `loai_sua`
+--
+
+INSERT INTO `loai_sua` (`MaLoaiSua`, `TenLoaiSua`) VALUES
+('SC', 'Sữa chua'),
+('SKD', 'Sữa không đường'),
+('ST', 'Sữa tươi'),
+('STT', 'Sữa tiệt trùng');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `thong_tin_sua`
 --
 
 CREATE TABLE `thong_tin_sua` (
   `ID` int(11) NOT NULL,
   `TenSua` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `HangSua` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `LoaiSua` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TrongLuong` int(11) DEFAULT NULL,
-  `DonGia` int(11) DEFAULT NULL
+  `HangSua` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `LoaiSua` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `TrongLuong` int(11) NOT NULL,
+  `DonGia` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -86,8 +108,11 @@ CREATE TABLE `thong_tin_sua` (
 --
 
 INSERT INTO `thong_tin_sua` (`ID`, `TenSua`, `HangSua`, `LoaiSua`, `TrongLuong`, `DonGia`) VALUES
-(1, 'Sữa chua Plus', 'VNM', 'Sữa chua', 180, 3600),
-(2, 'Cô gái hà lan', 'NTF', 'Sữa tươi', 100, 3000);
+(1, 'Sữa chua Plus', 'VNM', 'ST', 180, 3600),
+(2, 'Sữa ông thọ', 'NTF', 'SC', 200, 6600),
+(3, 'Sữa phụ nữ', 'DS', 'STT', 190, 5000),
+(4, 'Sữa voi rừng', 'DS', 'SKD', 150, 3400),
+(5, 'Sữa cô gái Hà Lan', 'NTF', 'ST', 170, 4500);
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -106,11 +131,18 @@ ALTER TABLE `khach_hang`
   ADD PRIMARY KEY (`MaKH`);
 
 --
+-- Chỉ mục cho bảng `loai_sua`
+--
+ALTER TABLE `loai_sua`
+  ADD PRIMARY KEY (`MaLoaiSua`);
+
+--
 -- Chỉ mục cho bảng `thong_tin_sua`
 --
 ALTER TABLE `thong_tin_sua`
-  ADD PRIMARY KEY (`ID`,`HangSua`),
-  ADD KEY `HangSua` (`HangSua`);
+  ADD PRIMARY KEY (`ID`,`HangSua`,`LoaiSua`),
+  ADD KEY `HangSua` (`HangSua`),
+  ADD KEY `LoaiSua` (`LoaiSua`);
 
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
@@ -120,7 +152,7 @@ ALTER TABLE `thong_tin_sua`
 -- AUTO_INCREMENT cho bảng `thong_tin_sua`
 --
 ALTER TABLE `thong_tin_sua`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -130,7 +162,8 @@ ALTER TABLE `thong_tin_sua`
 -- Các ràng buộc cho bảng `thong_tin_sua`
 --
 ALTER TABLE `thong_tin_sua`
-  ADD CONSTRAINT `thong_tin_sua_ibfk_1` FOREIGN KEY (`HangSua`) REFERENCES `hang_sua` (`MaHS`);
+  ADD CONSTRAINT `thong_tin_sua_ibfk_1` FOREIGN KEY (`HangSua`) REFERENCES `hang_sua` (`MaHS`),
+  ADD CONSTRAINT `thong_tin_sua_ibfk_2` FOREIGN KEY (`LoaiSua`) REFERENCES `loai_sua` (`MaLoaiSua`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
