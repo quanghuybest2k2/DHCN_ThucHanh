@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th9 29, 2022 lúc 05:16 AM
+-- Thời gian đã tạo: Th9 29, 2022 lúc 01:22 PM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.6
 
@@ -100,19 +100,23 @@ CREATE TABLE `thong_tin_sua` (
   `HangSua` varchar(10) NOT NULL,
   `LoaiSua` varchar(50) NOT NULL,
   `TrongLuong` int(11) NOT NULL,
-  `DonGia` int(11) NOT NULL
+  `DonGia` int(11) NOT NULL,
+  `TPDD` varchar(255) NOT NULL,
+  `LoiIch` varchar(255) NOT NULL,
+  `HinhAnh` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `thong_tin_sua`
 --
 
-INSERT INTO `thong_tin_sua` (`ID`, `TenSua`, `HangSua`, `LoaiSua`, `TrongLuong`, `DonGia`) VALUES
-(1, 'Sữa chua Plus', 'VNM', 'ST', 180, 3600),
-(2, 'Sữa ông thọ', 'NTF', 'SC', 200, 6600),
-(3, 'Sữa phụ nữ', 'DS', 'STT', 190, 5000),
-(4, 'Sữa voi rừng', 'DS', 'SKD', 150, 3400),
-(5, 'Sữa cô gái Hà Lan', 'NTF', 'ST', 170, 4500);
+INSERT INTO `thong_tin_sua` (`ID`, `TenSua`, `HangSua`, `LoaiSua`, `TrongLuong`, `DonGia`, `TPDD`, `LoiIch`, `HinhAnh`) VALUES
+(1, 'Sữa chua Plus', 'VNM', 'ST', 180, 3600, 'Kẽm, đường ngọt, sữa tươi', 'Tăng miễn dịch, tiêu hóa tốt', 'suachua.png'),
+(2, 'Sữa ông thọ', 'NTF', 'SC', 200, 6600, 'Sữa đặc, sữa nguyên chất', 'Kích thích tiêu hóa', 'ongtho.png'),
+(3, 'Sữa phụ nữ', 'DS', 'STT', 190, 5000, 'Không tạp chất, tự nhiên', 'Tăng sức đề kháng, miễn phí', 'phunu.png'),
+(4, 'Sữa voi rừng', 'DS', 'SKD', 150, 3400, 'Tự nhiên, canxi', 'Tăng cân nặng', 'suavoi.png'),
+(5, 'Sữa cô gái Hà Lan', 'NTF', 'ST', 170, 4500, 'Canxi, kẽm, đường, calo', 'Giúp mắt sáng, dáng cao', 'halan.png'),
+(6, 'Sữa Tuơi Plus', 'VNM', 'ST', 185, 5000, 'Canxi, kẽm, đường, bột ngọt', 'Tăng miễn dịch, mắt sáng', 'suatuoi.png');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -152,7 +156,7 @@ ALTER TABLE `thong_tin_sua`
 -- AUTO_INCREMENT cho bảng `thong_tin_sua`
 --
 ALTER TABLE `thong_tin_sua`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
