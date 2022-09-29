@@ -28,12 +28,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `hang_sua` (
-  `MaHS` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TenHS` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `DiaChi` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `DienThoai` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `Email` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `MaHS` varchar(10) NOT NULL,
+  `TenHS` varchar(100) NOT NULL,
+  `DiaChi` varchar(200) NOT NULL,
+  `DienThoai` varchar(11) NOT NULL,
+  `Email` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `hang_sua`
@@ -51,12 +51,12 @@ INSERT INTO `hang_sua` (`MaHS`, `TenHS`, `DiaChi`, `DienThoai`, `Email`) VALUES
 --
 
 CREATE TABLE `khach_hang` (
-  `MaKH` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TenKH` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `MaKH` varchar(10) NOT NULL,
+  `TenKH` varchar(50) NOT NULL,
   `GioiTinh` int(11) NOT NULL,
-  `DiaChi` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `DienThoai` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `DiaChi` varchar(200) NOT NULL,
+  `DienThoai` varchar(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `khach_hang`
@@ -74,9 +74,9 @@ INSERT INTO `khach_hang` (`MaKH`, `TenKH`, `GioiTinh`, `DiaChi`, `DienThoai`) VA
 --
 
 CREATE TABLE `loai_sua` (
-  `MaLoaiSua` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `TenLoaiSua` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `MaLoaiSua` varchar(10) NOT NULL,
+  `TenLoaiSua` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `loai_sua`
@@ -96,12 +96,12 @@ INSERT INTO `loai_sua` (`MaLoaiSua`, `TenLoaiSua`) VALUES
 
 CREATE TABLE `thong_tin_sua` (
   `ID` int(11) NOT NULL,
-  `TenSua` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `HangSua` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `LoaiSua` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `TenSua` varchar(100) NOT NULL,
+  `HangSua` varchar(10) NOT NULL,
+  `LoaiSua` varchar(50) NOT NULL,
   `TrongLuong` int(11) NOT NULL,
   `DonGia` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Đang đổ dữ liệu cho bảng `thong_tin_sua`
