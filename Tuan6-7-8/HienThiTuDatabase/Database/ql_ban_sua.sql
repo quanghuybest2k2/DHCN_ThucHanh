@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th9 29, 2022 lúc 01:22 PM
+-- Thời gian đã tạo: Th9 29, 2022 lúc 02:57 PM
 -- Phiên bản máy phục vụ: 10.4.24-MariaDB
 -- Phiên bản PHP: 8.1.6
 
@@ -95,7 +95,7 @@ INSERT INTO `loai_sua` (`MaLoaiSua`, `TenLoaiSua`) VALUES
 --
 
 CREATE TABLE `thong_tin_sua` (
-  `ID` int(11) NOT NULL,
+  `MaSua` varchar(10) NOT NULL,
   `TenSua` varchar(100) NOT NULL,
   `HangSua` varchar(10) NOT NULL,
   `LoaiSua` varchar(50) NOT NULL,
@@ -110,13 +110,13 @@ CREATE TABLE `thong_tin_sua` (
 -- Đang đổ dữ liệu cho bảng `thong_tin_sua`
 --
 
-INSERT INTO `thong_tin_sua` (`ID`, `TenSua`, `HangSua`, `LoaiSua`, `TrongLuong`, `DonGia`, `TPDD`, `LoiIch`, `HinhAnh`) VALUES
-(1, 'Sữa chua Plus', 'VNM', 'ST', 180, 3600, 'Kẽm, đường ngọt, sữa tươi', 'Tăng miễn dịch, tiêu hóa tốt', 'suachua.png'),
-(2, 'Sữa ông thọ', 'NTF', 'SC', 200, 6600, 'Sữa đặc, sữa nguyên chất', 'Kích thích tiêu hóa', 'ongtho.png'),
-(3, 'Sữa phụ nữ', 'DS', 'STT', 190, 5000, 'Không tạp chất, tự nhiên', 'Tăng sức đề kháng, miễn phí', 'phunu.png'),
-(4, 'Sữa voi rừng', 'DS', 'SKD', 150, 3400, 'Tự nhiên, canxi', 'Tăng cân nặng', 'suavoi.png'),
-(5, 'Sữa cô gái Hà Lan', 'NTF', 'ST', 170, 4500, 'Canxi, kẽm, đường, calo', 'Giúp mắt sáng, dáng cao', 'halan.png'),
-(6, 'Sữa Tuơi Plus', 'VNM', 'ST', 185, 5000, 'Canxi, kẽm, đường, bột ngọt', 'Tăng miễn dịch, mắt sáng', 'suatuoi.png');
+INSERT INTO `thong_tin_sua` (`MaSua`, `TenSua`, `HangSua`, `LoaiSua`, `TrongLuong`, `DonGia`, `TPDD`, `LoiIch`, `HinhAnh`) VALUES
+('DS001', 'Sữa cô gái Hà Lan', 'NTF', 'ST', 170, 4500, 'Canxi, kẽm, đường, calo', 'Giúp mắt sáng, dáng cao', 'halan.png'),
+('DS002', 'Sữa Tuơi Plus', 'VNM', 'ST', 185, 5000, 'Canxi, kẽm, đường, bột ngọt', 'Tăng miễn dịch, mắt sáng', 'suatuoi.png'),
+('NTF001', 'Sữa ông thọ', 'NTF', 'SC', 200, 6600, 'Sữa đặc, sữa nguyên chất', 'Kích thích tiêu hóa', 'ongtho.png'),
+('NTF002', 'Sữa phụ nữ', 'DS', 'STT', 190, 5000, 'Không tạp chất, tự nhiên', 'Tăng sức đề kháng, miễn phí', 'phunu.png'),
+('VMN002', 'Sữa voi rừng', 'DS', 'SKD', 150, 3400, 'Tự nhiên, canxi', 'Tăng cân nặng', 'suavoi.png'),
+('VNM001', 'Sữa chua Plus', 'VNM', 'ST', 180, 3600, 'Kẽm, đường ngọt, sữa tươi', 'Tăng miễn dịch, tiêu hóa tốt', 'suachua.png');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -144,19 +144,9 @@ ALTER TABLE `loai_sua`
 -- Chỉ mục cho bảng `thong_tin_sua`
 --
 ALTER TABLE `thong_tin_sua`
-  ADD PRIMARY KEY (`ID`,`HangSua`,`LoaiSua`),
+  ADD PRIMARY KEY (`MaSua`,`HangSua`,`LoaiSua`),
   ADD KEY `HangSua` (`HangSua`),
   ADD KEY `LoaiSua` (`LoaiSua`);
-
---
--- AUTO_INCREMENT cho các bảng đã đổ
---
-
---
--- AUTO_INCREMENT cho bảng `thong_tin_sua`
---
-ALTER TABLE `thong_tin_sua`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Các ràng buộc cho các bảng đã đổ

@@ -3,7 +3,7 @@ require_once './db.php';
 
 require_once './phantrang.php';
 
-$query = "SELECT tths.ID, tths.TenSua, hs.TenHS, ls.TenLoaiSua, tths.TrongLuong, tths.DonGia, tths.TPDD, tths.LoiIch, tths.HinhAnh FROM hang_sua as hs, thong_tin_sua as tths, loai_sua as ls Where hs.MaHS = tths.HangSua and ls.MaLoaiSua = tths.LoaiSua limit $start_from,$num_per_page";
+$query = "SELECT tths.MaSua, tths.TenSua, hs.TenHS, ls.TenLoaiSua, tths.TrongLuong, tths.DonGia, tths.TPDD, tths.LoiIch, tths.HinhAnh FROM hang_sua as hs, thong_tin_sua as tths, loai_sua as ls Where hs.MaHS = tths.HangSua and ls.MaLoaiSua = tths.LoaiSua limit $start_from,$num_per_page";
 $result = mysqli_query($conn, $query);
 // 
 ?>
@@ -53,12 +53,12 @@ $result = mysqli_query($conn, $query);
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo
                             "<tr class=" . $style[$index % 2] . ">
-                                <td>" . $row['ID'] . "</td>
+                                <td>" . $row['MaSua'] . "</td>
                                 <td>" . $row['TenSua'] . "</td>
                                 <td>" . $row['TenHS'] . "</td>
                                 <td>" . $row['TenLoaiSua'] . "</td>
-                                <td>" . $row['TrongLuong'] . "</td>
-                                <td>" . $row['DonGia'] . "</td>
+                                <td>" . $row['TrongLuong'] . "gr" . "</td>
+                                <td>" . $row['DonGia'] . "đ" . "</td>
                                 <td>" . $row['TPDD'] . "</td>
                                 <td>" . $row['LoiIch'] . "</td>
                                 <td>" . $row['HinhAnh'] . "</td>
@@ -71,7 +71,7 @@ $result = mysqli_query($conn, $query);
             </table>
             <div class="container mt-3">
                 <?php
-                $pr_query = "SELECT tths.ID, tths.TenSua, hs.TenHS, ls.TenLoaiSua, tths.TrongLuong, tths.DonGia, tths.TPDD, tths.LoiIch, tths.HinhAnh FROM hang_sua as hs, thong_tin_sua as tths, loai_sua as ls Where hs.MaHS = tths.HangSua and ls.MaLoaiSua = tths.LoaiSua";
+                $pr_query = "SELECT tths.MaSua, tths.TenSua, hs.TenHS, ls.TenLoaiSua, tths.TrongLuong, tths.DonGia, tths.TPDD, tths.LoiIch, tths.HinhAnh FROM hang_sua as hs, thong_tin_sua as tths, loai_sua as ls Where hs.MaHS = tths.HangSua and ls.MaLoaiSua = tths.LoaiSua";
                 $pr_result = mysqli_query($conn, $pr_query);
                 $total_record = mysqli_num_rows($pr_result);
 

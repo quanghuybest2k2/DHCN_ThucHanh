@@ -1,8 +1,66 @@
 <?php
 require_once './db.php';
-$query = "";
-// $result = mysqli_query($conn, $query);
-// INSERT INTO `thong_tin_sua`(`TenSua`, `HangSua`, `LoaiSua`, `TrongLuong`, `DonGia`, `TPDD`, `LoiIch`, `HinhAnh`) VALUES ('Sữa Tuơi Plus', 'VNM', 'ST', '185', '5000', 'Canxi, kẽm, đường, bột ngọt', 'Tăng miễn dịch, mắt sáng', 'suatuoi.png')
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $MaSua = $_POST["MaSua"];
+    $TenSua = $_POST["TenSua"];
+    $HangSua = $_POST["HangSua"];
+    $getHangSua = "";
+    switch ($HangSua) {
+        case 'NTF':
+            $getHangSua = "NTF";
+            break;
+        case 'VNM':
+            $getHangSua = "VNM";
+            break;
+        case 'DS':
+            $getHangSua = "DS";
+            break;
+    }
+    $LoaiSua = $_POST["LoaiSua"];
+    $getLoaiSua = "";
+    switch ($LoaiSua) {
+        case 'SC':
+            $getHangSua = "Sữa chua";
+            break;
+        case 'SKD':
+            $getHangSua = "Sữa không đường";
+            break;
+        case 'ST':
+            $getHangSua = "Sữa tươi";
+            break;
+        case 'STT':
+            $getHangSua = "Sữa tiệt trùng";
+            break;
+    }
+    $TrongLuong = $_POST["TrongLuong"];
+    $DonGia = $_POST["DonGia"];
+    $TPDD = $_POST["TPDD"];
+    $LoiIch = $_POST["LoiIch"];
+    $HinhAnh = $_POST["file"];
+
+
+    // // Lưu tên file
+    // $name = $_FILES["file"]["name"];
+
+    // // Lưu đuôi file
+    // $type = $_FILES["file"]["type"];
+
+    // // Lưu kích thước
+    // $size = $_FILES["file"]["size"];
+
+
+
+    // $query = "INSERT INTO `thong_tin_sua`(`MaSua`, `TenSua`, `HangSua`, `LoaiSua`, `TrongLuong`, `DonGia`, `TPDD`, `LoiIch`, `HinhAnh`) VALUES ('$MaSua', '$TenSua', '$getHangSua', '$getLoaiSua', '$TrongLuong', '$DonGia', '$TPDD', '$LoiIch', '$HinhAnh')";
+    // $result = mysqli_query($conn, $query);
+    // if ($result) {
+    //     echo "Thêm sữa thành công!";
+    // } else {
+    //     echo "ERROR: Không thể truy vấn -> $query. " . mysqli_error($conn);
+    // }
+}
+$ext = $_FILES['file']['name'];
+
+echo $ext;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,11 +81,11 @@ $query = "";
             <form action='./ThemSuaMoi.php' method='POST' class="row g-3">
                 <div class="col-md-6">
                     <label class='form-label'>Mã sữa:</label>
-                    <input type='text' class='form-control' id='' placeholder='NTF008' name='MaSua'>
+                    <input type='text' class='form-control' id='' placeholder='NTF008' name='MaSua' require />
                 </div>
                 <div class="col-md-6">
                     <label class='form-label'>Tên sữa:</label>
-                    <input type='text' class='form-control' id='' placeholder='Sunny Maman Chocolate' name='TenSua'>
+                    <input type='text' class='form-control' id='' placeholder='Sunny Maman Chocolate' name='TenSua' require />
                 </div>
                 <div class="col-md-6">
                     <label class='form-label'>Hẵng sữa:</label>
@@ -40,18 +98,19 @@ $query = "";
                 <div class="col-md-6">
                     <label class='form-label'>Loại sữa:</label>
                     <select class='form-select' name="LoaiSua" id=''>
-                        <option value="NTF">Nutifood</option>
-                        <option value="VNM">Vinamilk</option>
-                        <option value="DS">Daisy</option>
+                        <option value="SC">Sữa chua</option>
+                        <option value="SKD">Sữa không đường</option>
+                        <option value="ST">Sữa tươi</option>
+                        <option value="STT">Sữa tiệt trùng</option>
                     </select>
                 </div>
                 <div class="col-md-6">
                     <label class='form-label'>Trọng lượng:</label>
-                    <input type='number' class='form-control' id='' placeholder='800' name='TrongLuong'>
+                    <input type='number' class='form-control' id='' placeholder='800gr' name='TrongLuong' require />
                 </div>
                 <div class="col-md-6">
                     <label class='form-label'>Đơn giá:</label>
-                    <input type='number' class='form-control' id='' placeholder='166000' name='DonGia'>
+                    <input type='number' class='form-control' id='' placeholder='166000đ' name='DonGia' require />
                 </div>
                 <div class="col-md-6">
                     <label class='form-label'>Thành phần dinh dưỡng:</label>
@@ -63,7 +122,7 @@ $query = "";
                 </div>
                 <div class="col-12">
                     <label class='form-label'>Hình ảnh:</label>
-                    <input type='file' class='form-control' id='' name='HinhAnh'>
+                    <input type="file" class='form-control' id='' name='file' />
                 </div>
                 <div class="col-12 text-center">
                     <button type='submit' class='btn btn-primary'>Thêm mới</button>
