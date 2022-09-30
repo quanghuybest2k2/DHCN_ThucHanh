@@ -20,16 +20,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $getLoaiSua = "";
     switch ($LoaiSua) {
         case 'SC':
-            $getLoaiSua = "Sữa chua";
+            $getLoaiSua = "SC";
             break;
         case 'SKD':
-            $getLoaiSua = "Sữa không đường";
+            $getLoaiSua = "SKD";
             break;
         case 'ST':
-            $getLoaiSua = "Sữa tươi";
+            $getLoaiSua = "ST";
             break;
         case 'STT':
-            $getLoaiSua = "Sữa tiệt trùng";
+            $getLoaiSua = "STT";
             break;
     }
     $TrongLuong = $_POST["TrongLuong"];
@@ -37,8 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $TPDD = $_POST["TPDD"];
     $LoiIch = $_POST["LoiIch"];
     $hinh_anh = $_FILES['HinhAnh']['name'];
-    // echo $hinh_anh;
-
     // // Lưu tên file
     // $name = $_FILES["file"]["name"];
 
@@ -51,15 +49,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $query = "INSERT INTO thong_tin_sua(MaSua, TenSua, HangSua, LoaiSua, TrongLuong, DonGia, TPDD, LoiIch, HinhAnh) VALUES ('$MaSua', '$TenSua', '$getHangSua', '$getLoaiSua', '$TrongLuong', '$DonGia', '$TPDD', '$LoiIch', '$hinh_anh')";
     // $result = mysqli_query($conn, $query);
     if (mysqli_query($conn, $query)) {
-        echo "New record created successfully";
+        echo "<script type='text/javascript'>alert('Thêm sữa thành công!')</script>";
+        header("Location: thong_tin_sua.php");
     } else {
         echo "Error: " . $query . "<br>" . mysqli_error($conn);
     }
-    // if ($result) {
-    //     echo "Thêm sữa thành công!";
-    // } else {
-    //     echo "ERROR: Không thể truy vấn -> $query. " . mysqli_error($conn);
-    // }
 }
 ?>
 <!DOCTYPE html>
