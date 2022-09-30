@@ -49,11 +49,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $query = "INSERT INTO thong_tin_sua(MaSua, TenSua, HangSua, LoaiSua, TrongLuong, DonGia, TPDD, LoiIch, HinhAnh) VALUES ('$MaSua', '$TenSua', '$getHangSua', '$getLoaiSua', '$TrongLuong', '$DonGia', '$TPDD', '$LoiIch', '$hinh_anh')";
     // $result = mysqli_query($conn, $query);
     if (mysqli_query($conn, $query)) {
-        echo "<script type='text/javascript'>alert('Thêm sữa thành công!')</script>";
-        header("Location: thong_tin_sua.php");
+        echo "<script> alert('Thêm sữa thành công!'); </script>";
     } else {
         echo "Error: " . $query . "<br>" . mysqli_error($conn);
     }
+    mysqli_close($conn);
+    echo "<script> location.href='thong_tin_sua.php'; </script>";
+    //<button class="btn btn-success" onclick="showSuccessAlert()">Success</button>
 }
 ?>
 <!DOCTYPE html>
@@ -66,6 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Thêm sữa mới</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 
 <body>
@@ -124,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
     </div>
-
+    <script src="./js/alertmessage.js"></script>
 </body>
 
 </html>
