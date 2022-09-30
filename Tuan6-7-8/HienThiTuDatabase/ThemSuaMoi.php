@@ -1,63 +1,3 @@
-<?php
-require_once './db.php';
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $MaSua = $_POST["MaSua"];
-    $TenSua = $_POST["TenSua"];
-    $HangSua = $_POST["HangSua"];
-    $getHangSua = "";
-    switch ($HangSua) {
-        case 'NTF':
-            $getHangSua = "NTF";
-            break;
-        case 'VNM':
-            $getHangSua = "VNM";
-            break;
-        case 'DS':
-            $getHangSua = "DS";
-            break;
-    }
-    $LoaiSua = $_POST["LoaiSua"];
-    $getLoaiSua = "";
-    switch ($LoaiSua) {
-        case 'SC':
-            $getLoaiSua = "SC";
-            break;
-        case 'SKD':
-            $getLoaiSua = "SKD";
-            break;
-        case 'ST':
-            $getLoaiSua = "ST";
-            break;
-        case 'STT':
-            $getLoaiSua = "STT";
-            break;
-    }
-    $TrongLuong = $_POST["TrongLuong"];
-    $DonGia = $_POST["DonGia"];
-    $TPDD = $_POST["TPDD"];
-    $LoiIch = $_POST["LoiIch"];
-    $hinh_anh = $_FILES['HinhAnh']['name'];
-    // // Lưu tên file
-    // $name = $_FILES["file"]["name"];
-
-    // // Lưu đuôi file
-    // $type = $_FILES["file"]["type"];
-
-    // // Lưu kích thước
-    // $size = $_FILES["file"]["size"];
-
-    $query = "INSERT INTO thong_tin_sua(MaSua, TenSua, HangSua, LoaiSua, TrongLuong, DonGia, TPDD, LoiIch, HinhAnh) VALUES ('$MaSua', '$TenSua', '$getHangSua', '$getLoaiSua', '$TrongLuong', '$DonGia', '$TPDD', '$LoiIch', '$hinh_anh')";
-    // $result = mysqli_query($conn, $query);
-    if (mysqli_query($conn, $query)) {
-        echo "<script> alert('Thêm sữa thành công!'); </script>";
-    } else {
-        echo "Error: " . $query . "<br>" . mysqli_error($conn);
-    }
-    mysqli_close($conn);
-    echo "<script> location.href='thong_tin_sua.php'; </script>";
-    //<button class="btn btn-success" onclick="showSuccessAlert()">Success</button>
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -75,51 +15,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class='container mt-5 text-bg-danger p-3'>
         <div class='row justify-content-center'>
             <h1 class="text-center">THÊM SỮA MỚI</h1>
-            <form action="./ThemSuaMoi.php" method='POST' class="row g-3" enctype="multipart/form-data">
+            <form action="./ketquaThem.php" method='POST' class="row g-3" enctype="multipart/form-data">
                 <div class="col-md-6">
                     <label class='form-label'>Mã sữa:</label>
-                    <input type='text' class='form-control' id='' placeholder='NTF008' name='MaSua' require />
+                    <input type='text' class='form-control' id='' placeholder='NTF008' name='MaSua' required />
                 </div>
                 <div class="col-md-6">
                     <label class='form-label'>Tên sữa:</label>
-                    <input type='text' class='form-control' id='' placeholder='Sunny Maman Chocolate' name='TenSua' require />
+                    <input type='text' class='form-control' id='' placeholder='Sunny Maman Chocolate' name='TenSua' required />
                 </div>
                 <div class="col-md-6">
                     <label class='form-label'>Hẵng sữa:</label>
-                    <select class='form-select' name="HangSua" id=''>
-                        <option value="NTF">Nutifood</option>
-                        <option value="VNM">Vinamilk</option>
-                        <option value="DS">Daisy</option>
+                    <select class='form-select' name="HangSua" id='' required>
+                        <option value="Nutifood">Nutifood</option>
+                        <option value="Vinamilk">Vinamilk</option>
+                        <option value="Daisy">Daisy</option>
                     </select>
                 </div>
                 <div class="col-md-6">
                     <label class='form-label'>Loại sữa:</label>
-                    <select class='form-select' name="LoaiSua" id=''>
-                        <option value="SC">Sữa chua</option>
-                        <option value="SKD">Sữa không đường</option>
-                        <option value="ST">Sữa tươi</option>
-                        <option value="STT">Sữa tiệt trùng</option>
+                    <select class='form-select' name="LoaiSua" id='' required>
+                        <option value="SuaChua">Sữa chua</option>
+                        <option value="SuaKhongDuong">Sữa không đường</option>
+                        <option value="SuaTuoi">Sữa tươi</option>
+                        <option value="SuaTietTrung">Sữa tiệt trùng</option>
                     </select>
                 </div>
                 <div class="col-md-6">
                     <label class='form-label'>Trọng lượng:</label>
-                    <input type='number' class='form-control' id='' placeholder='800gr' name='TrongLuong' require />
+                    <input type='number' class='form-control' id='' placeholder='800gr' name='TrongLuong' required />
                 </div>
                 <div class="col-md-6">
                     <label class='form-label'>Đơn giá:</label>
-                    <input type='number' class='form-control' id='' placeholder='166000đ' name='DonGia' require />
+                    <input type='number' class='form-control' id='' placeholder='166000đ' name='DonGia' required />
                 </div>
                 <div class="col-md-6">
                     <label class='form-label'>Thành phần dinh dưỡng:</label>
-                    <textarea class='form-control' rows="3" id='' placeholder='Các vitamin, khoáng chất, canxi, folicacid, DHA...' name='TPDD'></textarea>
+                    <textarea class='form-control' rows="3" id='' placeholder='Các vitamin, khoáng chất, canxi, folicacid, DHA...' name='TPDD' required></textarea>
                 </div>
                 <div class="col-md-6">
                     <label class='form-label'>Lợi ích:</label>
-                    <textarea class='form-control' rows="3" id='' placeholder='Bổ sung các chất dinh dưỡng dành cho phụ nữ có thai và cho con bú' name='LoiIch'></textarea>
+                    <textarea class='form-control' rows="3" id='' placeholder='Bổ sung các chất dinh dưỡng dành cho phụ nữ có thai và cho con bú' name='LoiIch' required></textarea>
                 </div>
                 <div class="col-12">
                     <label class='form-label'>Hình ảnh:</label>
-                    <input type="file" class="form-control" name="HinhAnh" />
+                    <input type="file" class="form-control" name="HinhAnh" required />
                 </div>
                 <div class="col-12 text-center">
                     <button type='submit' class='btn btn-primary'>Thêm mới</button>
@@ -127,7 +67,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </form>
         </div>
     </div>
-    <script src="./js/alertmessage.js"></script>
 </body>
 
 </html>
