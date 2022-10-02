@@ -37,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $TPDD = $_POST["TPDD"];
     $LoiIch = $_POST["LoiIch"];
     $hinh_anh = $_FILES['HinhAnh']['name'];
+
     // // Lưu tên file
     // $name = $_FILES["file"]["name"];
 
@@ -48,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $file = $_FILES['HinhAnh']['tmp_name'];
     $path = "uploads/" . $hinh_anh;
     move_uploaded_file($file, $path);
-
+    // tao bien session de goi
     $query = "INSERT INTO thong_tin_sua(MaSua, TenSua, HangSua, LoaiSua, TrongLuong, DonGia, TPDD, LoiIch, HinhAnh) VALUES ('$MaSua', '$TenSua', '$getHangSua', '$getLoaiSua', '$TrongLuong', '$DonGia', '$TPDD', '$LoiIch', '$hinh_anh')";
     // $result = mysqli_query($conn, $query);
     if (mysqli_query($conn, $query)) {
@@ -61,32 +62,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // echo "<script> location.href='thong_tin_sua.php'; </script>";
     //<button class="btn btn-success" onclick="showSuccessAlert()">Success</button>
 }
+require_once './header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sữa vừa thêm</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-</head>
-
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-10 bg-danger text-white text-center"><?php echo "$TenSua - $HangSua"; ?></div>
-            <div class="col-3 bg-warning text-dark"><img src="<?php echo $path ?>" alt="" width="100%" height="100%"></div>
-            <div class="col-7 bg-primary text-white">
-                <p><strong>Thành phần dinh dưỡng:</strong><br /><?php echo $TPDD ?></p>
-                <p><strong>Lợi ích:</strong><br /><?php echo $LoiIch ?></p>
-                <p><strong>Trọng lượng:</strong> <mark><?php echo $TrongLuong ?>gr</mark> <strong>Đơn giá:</strong> <mark><?php echo $DonGia ?>VNĐ</mark> </p>
-            </div>
+<!-- content -->
+<div class="container">
+    <div class="row">
+        <div class="col-10 bg-danger text-white text-center"><?php echo "$TenSua - $HangSua"; ?></div>
+        <div class="col-3 bg-warning text-dark"><img src="<?php echo $path ?>" alt="" width="100%" height="100%"></div>
+        <div class="col-7 bg-primary text-white">
+            <p><strong>Thành phần dinh dưỡng:</strong><br /><?php echo $TPDD ?></p>
+            <p><strong>Lợi ích:</strong><br /><?php echo $LoiIch ?></p>
+            <p><strong>Trọng lượng:</strong> <mark><?php echo $TrongLuong ?>gr</mark> <strong>Đơn giá:</strong> <mark><?php echo $DonGia ?>VNĐ</mark> </p>
         </div>
     </div>
-</body>
-
-</html>
+</div>
+<?php require_once './footer.php'; ?>
