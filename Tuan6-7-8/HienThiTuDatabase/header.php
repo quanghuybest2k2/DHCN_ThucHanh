@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -89,6 +90,21 @@
                                 Khách hàng
                             </a>
                         </li>
+                        <li>
+                            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                                <p style="color: white;"><?php echo $_SESSION["customer_name"] ?></p>
+                            </a>
+                            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                                <li><a class="dropdown-item" href="#">New project...</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Sign out</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -100,8 +116,8 @@
                 </form>
 
                 <div class="text-end">
-                    <button type="button" class="btn btn-light text-dark me-2">Đăng nhập</button>
-                    <button type="button" class="btn btn-primary">Đăng ký</button>
+                    <a href="./login.php"><button type="button" class="btn btn-light text-dark me-2">Đăng nhập</button></a>
+                    <a href="./sign_up.php"><button type="button" class="btn btn-primary">Đăng ký</button></a>
                 </div>
             </div>
         </div>

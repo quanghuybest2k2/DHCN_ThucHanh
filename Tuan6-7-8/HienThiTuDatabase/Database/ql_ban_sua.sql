@@ -53,6 +53,8 @@ INSERT INTO `hang_sua` (`MaHS`, `TenHS`, `DiaChi`, `DienThoai`, `Email`) VALUES
 CREATE TABLE `khach_hang` (
   `MaKH` varchar(10) NOT NULL,
   `TenKH` varchar(50) NOT NULL,
+  `UserName` varchar(50) NOT NULL,
+  `Password` varchar(50) NOT NULL,
   `GioiTinh` int(11) NOT NULL,
   `DiaChi` varchar(200) NOT NULL,
   `DienThoai` varchar(11) NOT NULL
@@ -62,10 +64,10 @@ CREATE TABLE `khach_hang` (
 -- Đang đổ dữ liệu cho bảng `khach_hang`
 --
 
-INSERT INTO `khach_hang` (`MaKH`, `TenKH`, `GioiTinh`, `DiaChi`, `DienThoai`) VALUES
-('kh001', 'Khuất Thùy Dương', 1, 'A21 Nguyễn Oanh quận Gò Vấp', '9874125'),
-('kh002', 'Đỗ Lâm Thiên', 0, '357 Lê Hồng Phong Q.10', '8351056'),
-('kh003', 'Phạm thị Nhung', 1, '56 Đinh Tiên Hoàng quận 1', '9746698');
+INSERT INTO `khach_hang` (`MaKH`, `TenKH`, `UserName`, `Password`, `GioiTinh`, `DiaChi`, `DienThoai`) VALUES
+('kh001', 'Khuất Thùy Dương', 'duong123', '123456', 1, 'A21 Nguyễn Oanh quận Gò Vấp', '9874125'),
+('kh002', 'Đỗ Lâm Thiên', 'lam123', '123456', 0, '357 Lê Hồng Phong Q.10', '8351056'),
+('kh003', 'Phạm thị Nhung', 'thien123', '123456', 1, '56 Đinh Tiên Hoàng quận 1', '9746698');
 
 -- --------------------------------------------------------
 
@@ -132,7 +134,7 @@ ALTER TABLE `hang_sua`
 -- Chỉ mục cho bảng `khach_hang`
 --
 ALTER TABLE `khach_hang`
-  ADD PRIMARY KEY (`MaKH`);
+  ADD PRIMARY KEY (`MaKH`, `UserName`)
 
 --
 -- Chỉ mục cho bảng `loai_sua`

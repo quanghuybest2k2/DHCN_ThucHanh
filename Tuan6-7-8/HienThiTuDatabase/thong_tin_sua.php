@@ -43,7 +43,7 @@ require_once './header.php';
                                 <td>" . $row['DonGia'] . "đ" . "</td>
                                 <td>" . $row['TPDD'] . "</td>
                                 <td>" . $row['LoiIch'] . "</td>
-                                <td>" . "<img src='uploads/$hinh_anh' alt='' width='100'' height='100'>" . "</td>
+                                <td>" . "<img src='uploads/$hinh_anh' alt='' width='150'' height='130'>" . "</td>
                             </tr>";
                         $index++;
                     }
