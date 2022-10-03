@@ -114,11 +114,6 @@
                 <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
                     <input type="search" class="form-control" placeholder="Tìm sản phẩm" aria-label="Search">
                 </form>
-
-                <div class="text-end">
-                    <a href="./login.php"><button type="button" class="btn btn-light text-dark me-2">Đăng nhập</button></a>
-                    <a href="./sign_up.php"><button type="button" class="btn btn-primary">Đăng ký</button></a>
-                </div>
             </div>
         </div>
     </header>

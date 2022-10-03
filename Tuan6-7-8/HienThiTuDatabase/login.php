@@ -54,11 +54,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label class='form-label'>Mật khẩu:</label>
                         <input type='password' class='form-control' id='' placeholder='Nhập mật khẩu...' name='password' required />
                     </div>
-                    <div class='form-check mb-3'>
-                        <label class='form-check-label'>
-                            <input class='form-check-input' type='checkbox' name='remember'> Remember me</label>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <!-- Checkbox -->
+                        <div class="form-check mb-0">
+                            <input class="form-check-input me-2" type="checkbox" value="remember" />
+                            <label class="form-check-label">
+                                Remember me
+                            </label>
+                        </div>
+                        <a href="#!" class="text-body">Forgot password?</a>
                     </div>
-                    <button type='submit' class='btn btn-primary'>Xác nhận</button>
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">Đăng nhập</button>
+                        <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="./sign_up.php" class="link-danger">Register</a></p>
+                    </div>
                 </form>
             </div>
         </div>
