@@ -1,6 +1,40 @@
 <?php
 require_once './db.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['termOfService']) && $_POST['termOfService'] == "yes") {
+        $MaKH = $_POST["MaKH"];
+        $TenKH = $_POST["TenKH"];
+        $UserName = $_POST["UserName"];
+        $getPassword = $_POST["Password"];
+        $Confirm_password = $_POST["Confirm_password"];
+        $Password = "";
+        if ($getPassword == $Confirm_password) {
+            $Password = $getPassword;
+        } else {
+            die("<script> alert('Mật khẩu không khớp!'); </script>");
+        }
+        $getGioiTinh = $_POST["GioiTinh"];
+        $GioiTinh = "";
+        if ($getGioiTinh == "Nam") {
+            $GioiTinh = "0";
+        } elseif ($getGioiTinh == "Nu") {
+            $GioiTinh = "1";
+        } else {
+            $GioiTinh = "2";
+        }
+        $DiaChi = $_POST["DiaChi"];
+        $DienThoai = $_POST["DienThoai"];
+        $query = "INSERT INTO `khach_hang`(`MaKH`, `TenKH`, `UserName`, `Password`, `GioiTinh`, `DiaChi`, `DienThoai`) VALUES ('$MaKH','$TenKH','$UserName','$Password','$GioiTinh','$DiaChi','$DienThoai')";
+        if (mysqli_query($conn, $query)) {
+            echo "<script> alert('Đăng ký thành công!'); </script>";
+            header("Location: login.php");
+        } else {
+            echo "Error: " . $query . "<br>" . mysqli_error($conn);
+        }
+        mysqli_close($conn);
+    } else {
+        echo "Bạn phải đồng ý với điều khoản của chúng tôi.";
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -43,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                         <div class="form-outline">
                                             <label class="form-label">Mã khách hàng</label>
-                                            <input type="text" class="form-control form-control-lg" placeholder="KH001" required />
+                                            <input type="text" class="form-control form-control-lg" placeholder="KH001" name="MaKH" required />
                                         </div>
 
                                     </div>
@@ -51,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                         <div class="form-outline">
                                             <label class="form-label">Tên khách hàng</label>
-                                            <input type="text" class="form-control form-control-lg" placeholder="Tên khách hàng?" required />
+                                            <input type="text" class="form-control form-control-lg" placeholder="Tên khách hàng?" name="TenKH" required />
                                         </div>
 
                                     </div>
@@ -62,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                         <div class="form-outline datepicker w-100">
                                             <label class="form-label">Tên tài khoản</label>
-                                            <input type="text" class="form-control form-control-lg" placeholder="Tên tài khoản?" required />
+                                            <input type="text" class="form-control form-control-lg" placeholder="Tên tài khoản?" name="UserName" required />
                                         </div>
 
                                     </div>
@@ -72,17 +106,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                         <div class="form-check form-check-inline">
                                             <label class="form-check-label">Nữ</label>
-                                            <input class="form-check-input" type="radio" name="Nu" value="Nu" checked />
+                                            <input class="form-check-input" type="radio" name="GioiTinh" value="Nu" />
                                         </div>
 
                                         <div class="form-check form-check-inline">
                                             <label class="form-check-label">Nam</label>
-                                            <input class="form-check-input" type="radio" name="Nam" value="Nam" />
+                                            <input class="form-check-input" type="radio" name="GioiTinh" value="Nam" />
                                         </div>
 
                                         <div class="form-check form-check-inline">
                                             <label class="form-check-label">Khác</label>
-                                            <input class="form-check-input" type="radio" name="Khac" value="Khac" />
+                                            <input class="form-check-input" type="radio" name="GioiTinh" value="Khac" />
                                         </div>
 
                                     </div>
@@ -93,7 +127,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                         <div class="form-outline">
                                             <label class="form-label">Địa chỉ</label>
-                                            <input type="text" class="form-control form-control-lg" placeholder="Nhập địa chỉ..." required />
+                                            <input type="text" class="form-control form-control-lg" placeholder="Nhập địa chỉ..." name="DiaChi" required />
                                         </div>
 
                                     </div>
@@ -101,7 +135,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                         <div class="form-outline">
                                             <label class="form-label">Số điện thoại</label>
-                                            <input type="tel" class="form-control form-control-lg" placeholder="Số điện thoại?" required />
+                                            <input type="tel" class="form-control form-control-lg" placeholder="Số điện thoại?" name="DienThoai" required />
                                         </div>
 
                                     </div>
@@ -112,18 +146,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                         <div class="form-outline">
                                             <label class="form-label">Mật khẩu</label>
-                                            <input type="password" class="form-control form-control-lg" placeholder="Nhập mật khẩu..." required />
+                                            <input type="password" class="form-control form-control-lg" placeholder="Nhập mật khẩu..." name="Password" required />
                                         </div>
                                     </div>
                                     <div class="col-md-6 mb-4 pb-2">
                                         <div class="form-outline">
                                             <label class="form-label">Nhập lại mật khẩu</label>
-                                            <input type="password" class="form-control form-control-lg" placeholder="Nhập lại mật khẩu..." required />
+                                            <input type="password" class="form-control form-control-lg" placeholder="Nhập lại mật khẩu..." name="Confirm_password" required />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-check d-flex justify-content-center">
-                                    <input class="form-check-input me-2" type="checkbox" value="rememberCheck" />
+                                    <input class="form-check-input me-2" type="checkbox" value="yes" name="termOfService" />
                                     <label class="form-check-label">
                                         Tôi đồng ý tất cả các <a href="#">Điều khoản dịch vụ</a>
                                     </label>
