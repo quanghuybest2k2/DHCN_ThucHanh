@@ -32,8 +32,10 @@ require_once './header.php';
                         $gender = '';
                         if ($row['GioiTinh'] == 0) {
                             $gender =  "<img src='img/48x48Male.png' />";
-                        } else {
+                        } else if ($row['GioiTinh'] == 1) {
                             $gender =  "<img src='img/48x48Female.png' />";
+                        } else {
+                            $gender =  "<img src='img/48x48gay.png' />";
                         }
                         echo
                         "<tr class=" . $style[$index % 2] . ">
